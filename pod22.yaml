@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: with-pod-affinity22
+  labels:
+    app: a1
+    zone: z1
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - a1
+          topologyKey: zone
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - a1
+        topologyKey: kubernetes.io/hostname1
+  containers:
+  - name: with-pod-affinity22
+    image: busybox:latest
+    command: ['sh', '-c', 'top -b']
+

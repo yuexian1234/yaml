@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: test1
+  name: aa
+  labels:
+    app: a1
+    zone: z1
+spec:
+  containers:
+  - name: aa
+    image: busybox:latest
+    imagePullPolicy: IfNotPresent
+    command: ['sh', '-c', 'top -b']
+

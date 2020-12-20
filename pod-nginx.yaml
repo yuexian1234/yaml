@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: teststorage
+  labels:
+    app: teststorage
+spec:
+  containers:
+  - name: teststorage
+    image: nginx:1.14.2
+    command: ["bash", "-c", "while true; do dd if=/dev/zero of=$(date '+%s').out count=1 bs=10MB; sleep 1; done"] # 持续写入文件到容器的rootfs中
+    resources:
+      limits:
+        ephemeral-storage: 200Mi #定义存储的限制为100M
+      requests:
+        ephemeral-storage: 100Mi

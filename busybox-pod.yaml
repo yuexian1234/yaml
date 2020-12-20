@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: virtual-pod2
+  labels:
+    app: myapp
+spec:
+  nodeName: kubelet1
+  containers:
+  - name: myapp-container
+    image: busybox:latest
+    command: ['sh', '-c', 'top -b']
