@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: centos01
+spec:
+  selector:
+    matchLabels:
+      app: centos
+  replicas: 1
+  serviceName: test
+  template:
+    metadata:
+     labels:
+       app: centos
+    spec:
+      hostname: cheyuexian
+      containers:
+      - name: centos01
+        image: hub.c.163.com/public/centos:6.7-tools
+        resources:
+          limits:
+           cpu: 100m
+           memory: 100Mi
+          requests:
+           cpu: 10m
+           memory: 10Mi

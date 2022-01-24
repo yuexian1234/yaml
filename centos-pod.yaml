@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: centos1
+  labels:
+    env: test
+spec:
+  #dnsPolicy: Default
+  shareProcessNamespace: true
+  containers:
+  - name: main
+    image: hub.c.163.com/public/centos:6.7-tools
+    command: ["bash","-c","python2 -m SimpleHTTPServer 8080 && sleep 100121212121122222sadasdasdasdwwasdasdsadasdasdadsadsasdasdasdasdadasaawqweqdasjdasjkjkhadsjkhdsahhas100121212121122222sadasdasdasdwwasdasdsadasdasdadsadsasdasdasdasdadasaawqweqdasjdasjkjkhadsjkhdsahhas"]
+    resources:
+        limits:
+           cpu: "100m"
+           memory: "50Mi"
+        requests:
+           cpu: "100m"
+           memory: "50Mi"

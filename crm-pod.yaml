@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test01
+  labels:
+    app: test
+    app_id: ops.test.test
+    app_type: job
+    bu: ops
+    crm_cluster_name: tx-sh-k8s-05
+    crm_env: uat
+    crm_service: crm
+    env: uat
+    job_name: test-centos-vpc-amd-ubuntu2
+    platform: ops-test
+    project: test
+    task_type: CPU
+    tree_id: "3248"
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: hardware-type
+            operator: NotIn
+            values:
+            - NVIDIAGPU
+  containers:
+  - args:
+    - -c
+    - sleep 300
+    command:
+    - bash
+    env:
+    - name: VXCODE_SWARM_ENV
+      value: prod
+    - name: JOB_ID
+      value: vx202005280000000000000462801402
+    - name: SWARM_POSITION
+      value: neighbour
+    - name: SWARM_QUEEN
+      value: neighbour_hw_acceptance_cpu_01_001
+    - name: a
+      value: b
+    - name: a
+      value: c
+    - name: POD_NAME
+      value: test-centos-vpc-amd-ubuntu2
+    - name: CASTER_CLUSTER_NAME
+      value: tx-sh-k8s-05
+    - name: HOST_IP
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: status.hostIP
+    - name: POD_IP
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: status.podIP
+    image: hub.c.163.com/public/centos:6.7-tools
+    imagePullPolicy: IfNotPresent
+    name: main
+    resources:
+      limits:
+        cpu: 102m
+        memory: 102Mi
+      requests:
+        cpu: 101m
+        memory: 101Mi
+    securityContext:
+      capabilities:
+        add:
+        - SYS_PTRACE
+        - SYSLOG
+        - SYS_ADMIN
+        - SYS_NICE
+      privileged: false
+    volumeMounts:
+    - mountPath: /data/tmp1234
+      name: volume-main-0
+  dnsPolicy: Default
+  enableServiceLinks: true
+  hostNetwork: true
+  imagePullSecrets:
+  - name: regsecret
+  priority: 0
+  restartPolicy: Never
+  volumes:
+  - hostPath:
+      path: /data/tmp1234
+      type: ""
+    name: volume-main-0

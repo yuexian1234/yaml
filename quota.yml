@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: quota
+  namespace: ops-test-uat
+spec:
+  hard:
+    requests.caster.io/colocation-cpu: "6000"
+    limits.caster.io/colocation-cpu: "6000"

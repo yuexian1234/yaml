@@ -1,15 +1,18 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  namespace: test1
-  name: aa
+  name: test-07
   labels:
     app: a1
     zone: z1
 spec:
   containers:
-  - name: aa
+  - name: main6
     image: busybox:latest
-    imagePullPolicy: IfNotPresent
     command: ['sh', '-c', 'top -b']
+    resources:
+      limits:
+        caster.io/colocation-cpu: 1
+      requests:
+        caster.io/colocation-cpu: 1
 
