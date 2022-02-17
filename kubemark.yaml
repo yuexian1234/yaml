@@ -14,6 +14,8 @@ spec:
      labels:
        name: hollow-node
     spec:
+      nodeSelector:
+        app: kubemark
       initContainers:
       - name: init-inotify-limit
         image: hub.c.163.com/library/busybox:latest
