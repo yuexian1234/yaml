@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: etcdbak
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+           - name: bak
+             hostPath:
+              path: /var/lib/etcd/etcdbak
+          containers:
+          - name: main
+            image: k8s.gcr.io/etcd:3.5.1-0
+            imagePullPolicy: IfNotPresent
+            volumeMounts:
+             - mountPath: /data
+               name: bak
+            command:
+            - etcdctl snapshot save /data/bak.db
+          restartPolicy: Never

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: externalname-http-nginx-svc
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: nginx-ss.default.svc.cluster.local
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  selector: {}
