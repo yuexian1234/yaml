@@ -1,0 +1,46 @@
+{
+"kind" : "Policy",
+"apiVersion" : "v1",
+  "predicates" : [
+    {"name" : "PodFitsHostPorts"},
+    {"name" : "PodFitsResources"},
+    {"name" : "NoDiskConflict"},
+    {"name" : "MatchNodeSelector"},
+    {"name" : "HostName"}
+  ],
+  "priorities" : [
+    {"name" : "LeastRequestedPriority", "weight" : 1},
+    {"name" : "BalancedResourceAllocation", "weight" : 1},
+    {"name" : "ServiceSpreadingPriority", "weight" : 1},
+    {"name" : "EqualPriority", "weight" : 1},
+  {
+				"name": "RequestedToCapacityRatioPriority",
+				"weight": 2,
+				"argument": {
+				"requestedToCapacityRatioArguments": {
+					"shape": [
+						{"utilization": 0,  "score": 0},
+						{"utilization": 50, "score": 10}
+					]
+				}
+			}}
+  ],
+"extenders" : [{
+    "urlPrefix": "http://10.250.0.67:23000/scheduler",
+    "filterVerb": "predicates",
+    "prioritizeVerb": "priorities",
+    "preemptVerb": "",
+    "bindVerb": "",
+    "weight": 10,
+    "enableHttps": false,
+    "nodeCacheCapable": true,
+    "ignorable": true,
+     "managedResources":[
+                {
+                    "name":"bcs/gpu-mem",
+                    "ignoredByScheduler":false
+                }
+    ]
+}],
+"hardPodAffinitySymmetricWeight" : 10
+}

@@ -1,0 +1,21 @@
+apiVersion: kubescheduler.config.k8s.io/v1alpha1
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: false
+clientConnection:
+  kubeconfig: "/var/lib/kubernetes/kube-scheduler.kubeconfig"
+plugins:
+  score:
+    enabled:
+    - name: RequestedToCapacityRatio
+pluginConfig:
+  - name: RequestedToCapacityRatio
+    args: 
+      shape:
+      - utilization: 0
+        score: 0
+      - utilization: 100
+        score: 100
+      resources:
+      - name: cpu
+        weight: 1
